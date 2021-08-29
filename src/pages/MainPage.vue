@@ -20,9 +20,9 @@ export default {
       return new Audio(require('../assets/audio/mainPage-audio.mp3'))
     }
   },
-   mounted() {
-     this.audio.play()
-   },
+  created() {
+    this.audio.play()
+  },
   beforeDestroy() {
     this.audio.pause()
   }
