@@ -19,6 +19,10 @@
         <p class = "content__description">{{ movie.rating }}</p>
       </div>
       <div class = "content">
+        <p class = "content__title">Дата виходу:</p>
+        <p class = "content__description">{{ movie.date }}</p>
+      </div>
+      <div class = "content">
         <p class = "content__title">Акторський склад:</p>
         <p class = "content__description">{{ movie.actors.join(', ') }}</p>
       </div>

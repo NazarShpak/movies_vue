@@ -7,7 +7,7 @@
         :autoplay = "this.autoplay"
         :loop = true
         preload = "auto"
-        src="../assets/audio/allMoviesPage-audio.mp3"
+        src = "../assets/audio/allMoviesPage-audio.mp3"
       >
       </audio>
       <button 
