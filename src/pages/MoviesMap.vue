@@ -1,11 +1,13 @@
 <template>
-  <div class = "movies-map">
+  <div
+      class = "movies-map"
+  >
     <div class = "container">
       <div class = "movies-map__head">
         <h1 class = "movies-map__title">Карта фільмів</h1>
         <div
             class = "movies-map__sort-btn"
-            @click = "showSortModal()"
+            @click = "showSortModal"
         >
         </div>
       </div>
@@ -15,7 +17,11 @@
           class = "movies-map__modal-sort"
       >
         <h2 class = "movies-map__modal-sort-title">Сортувати</h2>
-
+        <span
+            class = "movies-map__modal-close-btn"
+            @click = "closeSortModal"
+        >
+        </span>
         <div class = "movies-map__modal-sort-box">
           <label class = "movies-map__check">
             <input
@@ -24,7 +30,6 @@
                 name = "sort"
                 value = "default"
                 v-model = "sortChek"
-
             >
             <span class = "movies-map__checkbox-style"></span>
             по замовчуванню
@@ -149,6 +154,8 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
+
 export default {
   name: "MoviesMap",
   data() {
@@ -158,6 +165,9 @@ export default {
       modalSort: false,
       modalDelete: false,
     }
+  },
+  directives: {
+    ClickOutside
   },
   computed: {
     movies() {
@@ -172,6 +182,12 @@ export default {
       this.$store.commit("sortMovies", this.getSortData)
       this.modalSort = false
     },
+    showSortModal() {
+      this.modalSort ? this.modalSort = false : this.modalSort = true
+    },
+    closeSortModal() {
+      this.modalSort = false
+    },
     showDeleteModal() {
       this.modalDelete = true
     },
@@ -181,9 +197,6 @@ export default {
     deleteMovie(index) {
       this.$store.commit("deleteMovie", index)
       this.modalDelete = false
-    },
-    showSortModal() {
-      this.modalSort ? this.modalSort = false : this.modalSort = true
     },
   }
 }
@@ -237,7 +250,26 @@ export default {
     color: #fff;
   }
   &__modal-sort-title {
+    display: inline-block;
     margin: 0 0 0 70px;
+  }
+  &__modal-close-btn {
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    margin-left: 67px;
+  }
+  &__modal-close-btn::after {
+    cursor: pointer;
+    position: absolute;
+    content: "\f00d";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #fff;
+    font-size: 25px;
+    line-height: 25px;
+    bottom: 15px;
   }
   &__modal-sort-box {
     display: flex;
@@ -253,6 +285,7 @@ export default {
     font-size: 20px;
     line-height: 24px;
     margin-left: 10px;
+    cursor: pointer;
   }
   &__checkbox {
     position: absolute;
@@ -285,6 +318,7 @@ export default {
     height: 33px;
     font-size: 23px;
     background: #fff;
+    cursor: pointer;
   }
   &__option {
     font-size: 16px;

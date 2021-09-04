@@ -27,7 +27,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setMoviesArray(state, payload) {
-      state.movies = payload.concat()
+      state.movies = payload
     },
     setMoviesArrayCopy(state, payload) {
       state.moviesCopy = payload.concat()
