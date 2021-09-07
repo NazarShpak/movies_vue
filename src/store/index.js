@@ -26,19 +26,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setMoviesArray(state, payload) {
-      state.movies = payload
-    },
-    setMoviesArrayCopy(state, payload) {
+    updateMovies(state, payload) {
+      state.movies = payload.concat()
       state.moviesCopy = payload.concat()
     },
     addMovie(state, payload) {
       state.movies.unshift(payload)
-      state.moviesCopy.unshift(payload)
     },
     deleteMovie(state, payload) {
       state.movies.splice(payload, 1)
-      state.moviesCopy.splice(payload, 1)
     },
     sortMovies(state, payload) {
       let sortFunction = (a, b) => (a[payload[1]] > b[payload[1]]) ? 1 : ((b[payload[1]]  > a[payload[1]]) ? -1 : 0)
@@ -52,14 +48,17 @@ export default new Vuex.Store({
           state.movies.sort(sortFunction).reverse()
         }
       }
-    }
+    },
   },
   actions: {
     async loadMovies({ commit }, payload) {
       try {
-        let movies = await loadMoviesApi(payload)
-        commit('setMoviesArray', movies)
-        commit('setMoviesArrayCopy', movies)
+        if(payload.length === 0) {
+          let movies = await loadMoviesApi(payload)
+          commit('updateMovies', movies)
+        } else {
+          commit('updateMovies', payload)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -72,9 +71,9 @@ export default new Vuex.Store({
         console.log(error)
       }
     },
-    async sortMovies({ commit }, movies) {
+    async sortMovies({ commit }, params) {
       try {
-        commit('sortMovies', movies)
+        commit('sortMovies', params)
       } catch (error) {
         console.log(error)
       }

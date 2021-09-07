@@ -6,15 +6,11 @@
     >
     </movies-menu>
     <router-view></router-view>
-    <!--    <movies-map/>-->
-    <!-- <add-movie-page/> -->
   </div>
 </template>
 
 <script>
 import MoviesMenu from './components/MoviesMenu.vue'
-// import MoviesMap from "./pages/MoviesMap.vue";
-// import AddMoviePage from './pages/AddMoviePage.vue'
 
 export default {
   name: 'App',
@@ -22,9 +18,7 @@ export default {
     return {}
   },
   components: {
-    MoviesMenu,
-    // MoviesMap,
-    // AddMoviePage
+    MoviesMenu
   },
 }
 </script>

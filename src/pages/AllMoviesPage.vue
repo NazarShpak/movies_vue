@@ -21,7 +21,7 @@ export default {
       MoviesCardsList,
   },
   created() {
-    this.$store.dispatch('loadMovies')
+      this.$store.dispatch('loadMovies', this.movies)
   },
   computed: {
     movies() {

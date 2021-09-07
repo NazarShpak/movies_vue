@@ -113,22 +113,33 @@
           Додати фільм
       </span>
       </div>
-      <div
-          class = "movies-map__item"
-          v-for = "(img, index) in this.movies"
-          :key = "index"
+
+      <draggable
+          class="draggable"
+          v-model="movies"
+          group="movies"
+          @start="drag=true"
+          @end="drag=false"
       >
-        <img
-            class = "movies-map__img"
-            :src = "img['img']"
+        <div
+            class = "movies-map__item"
+            v-for = "(img, index) in movies"
+            :key = "index"
         >
-        <span class = "movies-map__delete">
-          <button
-              class = "movies-map__delete-btn"
-              @click = "showDeleteModal()">
-          </button>
-        </span>
-      </div>
+          <img
+              class = "movies-map__img"
+              :src = "img['img']"
+          >
+          <span class = "movies-map__delete">
+            <button
+                class = "movies-map__delete-btn"
+                @click = "showDeleteModal()">
+            </button>
+          </span>
+        </div>
+      </draggable>
+
+
       <div
           v-show = "modalDelete"
           class = "movies-map__modal-del"
@@ -155,6 +166,7 @@
 
 <script>
 import ClickOutside from 'vue-click-outside'
+import draggable from 'vuedraggable'
 
 export default {
   name: "MoviesMap",
@@ -166,16 +178,24 @@ export default {
       modalDelete: false,
     }
   },
+  components: {
+    draggable,
+  },
   directives: {
     ClickOutside
   },
   computed: {
-    movies() {
-      return this.$store.getters.getMovies
+    movies: {
+      get() {
+        return this.$store.state.movies
+      },
+      set(value) {
+        this.$store.commit('updateMovies', value)
+      }
     },
     getSortData() {
       return [this.sortSelect, this.sortChek]
-    }
+    },
   },
   methods: {
     sortMoviesArray() {
@@ -206,6 +226,10 @@ export default {
 .container {
   background-color: rgba(0, 0, 0, 0.7);
   min-height: 500px;
+}
+.draggable {
+  display: inline;
+  cursor: move;
 }
 .movies-map {
   &__head {
@@ -352,6 +376,9 @@ export default {
     width: 300px;
     height: 200px;
   }
+  &__img {
+    cursor: move;
+  }
   &__delete,
   &__add{
     position: absolute;
@@ -371,6 +398,9 @@ export default {
       opacity: 1;
     }
   }
+  &__delete {
+    cursor: move;
+  }
   &__add {
     color: #fff;
     font-size: 30px;
@@ -378,6 +408,7 @@ export default {
     font-weight: bold;
   }
   &__delete-btn {
+    cursor: pointer;
     position: relative;
     border: none;
     background: none;
