@@ -1,15 +1,18 @@
 <template>
-  <div class = "movie-card">
+  <div class="movie-card">
+
     <img
-      class = "movie-card__img"
-      :src = "movie.img"
-      :alt = "movie.title"
-    > 
-    <p class = "rating">{{movie.rating}}</p>
-    <p class = "title">{{movie.title }}</p>
-    <router-link 
-      class = "more-info"
-      :to = "{ name: 'about-movie', params: {movieName: movie.title}}"
+        class="movie-card__img"
+        :src="movie.img"
+        :alt="movie.title"
+    >
+    <p class="rating">{{ movie.rating }}</p>
+    <p class="title">{{ movie.title }}</p>
+
+    <!-- Open about movie page -->
+    <router-link
+        class="more-info"
+        :to="{ name: 'about-movie', params: {movieName: movie.title}}"
     >
       Детальніше
     </router-link>
@@ -18,11 +21,12 @@
 
 <script>
 export default {
+  name: 'MovieCard',
   props: {
     movie: {
       type: Object
     }
-  }  
+  }
 }
 </script>
 
@@ -31,12 +35,14 @@ export default {
   position: relative;
   width: 1000px;
   height: 600px;
+
   &__img {
     object-fit: cover;
     border-radius: 15px;
     width: 100%;
     height: 100%;
   }
+
   .title {
     position: absolute;
     margin-bottom: 0;
@@ -45,12 +51,13 @@ export default {
     width: 100%;
     color: #ffffff;
     height: 100px;
-    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 90%);
     font-weight: 700;
     padding: 20px;
     font-size: 30px;
     border-radius: 0 0 10px 10px;
   }
+
   .rating {
     position: absolute;
     right: 0;
@@ -68,6 +75,7 @@ export default {
     border-radius: 0 15px 0 15px;
     opacity: 0.8;
   }
+
   .more-info {
     position: absolute;
     cursor: pointer;
@@ -86,6 +94,7 @@ export default {
     text-decoration: none;
     opacity: 0;
     transition: all 0.2s ease;
+
     &:hover, &:focus {
       opacity: 1;
     }

@@ -1,17 +1,20 @@
 <template>
-  <div class = "movies-cards-list">
+  <div class="movies-cards-list">
+
+    <!-- Movie card -->
     <movie-card
-      class = "movie-card"
-      v-for = "(movie, index) in movies"
-      :key = "index"
-      :movie = "movie"
+      class="movie-card"
+      v-for="(movie, index) in movies"
+      :key="index"
+      :movie="movie"
     >
     </movie-card>
+
   </div>
 </template>
 
 <script>
-import MovieCard from '@/components/MovieCard'
+import MovieCard from "./MovieCard";
 
 export default {
   props: {

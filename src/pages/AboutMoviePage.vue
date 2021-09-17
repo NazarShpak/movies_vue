@@ -1,50 +1,62 @@
 <template>
-  <div class = "about-movie-page">
-    <div class = "container">
-      <h1 class = "about-movie-page__title">{{ movie.title }}</h1>
+  <div class="about-movie-page">
+    <div class="container">
+      <h1 class="about-movie-page__title">{{ movie.title }}</h1>
+
+      <!-- Youtube video trailer-->
       <youtube 
-        class = "about-movie-page__video"
-        :video-id = "videoId"
-        :host = "movie.video"
-        player-height = "600"
-        player-width = "1050"
+        class="about-movie-page__video"
+        :video-id="videoId"
+        :host="movie.video"
+        player-height="600"
+        player-width="1050"
       >
       </youtube>
-      <div class = "content">
-        <p class = "content__title">Сюжет:</p>
-        <p class = "content__description">{{ movie.description }}</p>
+
+      <!-- Main movie info -->
+      <div class="content">
+        <p class="content__title">Сюжет:</p>
+        <p class="content__description">{{ movie.description }}</p>
       </div>
-      <div class = "content">
-        <p class = "content__title">Рейтинг:</p>
-        <p class = "content__description">{{ movie.rating }}</p>
+
+      <div class="content">
+        <p class="content__title">Рейтинг:</p>
+        <p class="content__description">{{ movie.rating }}</p>
       </div>
-      <div class = "content">
-        <p class = "content__title">Дата виходу:</p>
-        <p class = "content__description">{{ movie.date }}</p>
+
+      <div class="content">
+        <p class="content__title">Дата виходу:</p>
+        <p class="content__description">{{ movie.date }}</p>
       </div>
-      <div class = "content">
-        <p class = "content__title">Акторський склад:</p>
-        <p class = "content__description">{{ movie.actors.join(', ') }}</p>
+
+      <div class="content">
+        <p class="content__title">Акторський склад:</p>
+        <p class="content__description">{{ movie.actors.join(', ') }}</p>
       </div>
-      <div class = "content">
-        <p class = "content__title">Режисери:</p>
-        <p class = "content__description description-last">{{ movie.directors.join(', ') }}</p>
+
+      <div class="content">
+        <p class="content__title">Режисери:</p>
+        <p class="content__description description-last">{{ movie.directors.join(', ') }}</p>
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import movies from '../data-movies/movies'
-
 export default {
   data() {
     return {
-        movie: null
+        movie: null,
     }
   },
   created() {
-    this.movie = movies.find(movie => movie.title == this.$route.params.movieName)
+    this.movie = this.movies.find(movie => movie.title == this.$route.params.movieName)
+  },
+  computed: {
+    movies() {
+      return this.$store.getters.getMovies
+    }
   }
 }
 </script>
@@ -52,14 +64,12 @@ export default {
 <style lang="scss" scoped>
 .container {
   background-color: rgba(0, 0, 0, 0.7);
-  // height: 100vh;
 }
 .about-movie-page {
   width: 100%;
   &__title {
     color: rgb(213, 20, 20);
     margin-bottom: 30px;
-    //margin-top: 100px;
     padding-top: 15px;
     padding-bottom: 15px;
     position: relative;

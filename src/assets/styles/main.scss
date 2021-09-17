@@ -37,6 +37,19 @@ h1, h2, h3, h4 {
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px 0; 
-  // height: 100vh;
+  padding: 0 20px 0;
+}
+
+input,
+textarea,
+button:focus {
+  outline:none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+textarea::-webkit-outer-spin-button,
+textarea::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

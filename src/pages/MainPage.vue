@@ -1,12 +1,12 @@
 <template>
-  <div class = "main-page">
-    <h1 class = "main-page__title">
+  <div class="main-page">
+    <h1 class="main-page__title">
       MARVEL
     </h1>
     <button 
-      class = "main-page__btn" 
-      type = "button" 
-      @click = "$router.push ({name: 'movies'})"
+      class="main-page__btn"
+      type="button"
+      @click="$router.push ({name: 'movies'})"
     >
       Перейти до фільмів
     </button>
@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'MainPage',
   computed: {
     audio() {
       return new Audio(require('../assets/audio/mainPage-audio.mp3'))

@@ -1,11 +1,14 @@
 <template>
-  <div class = "all-movies-page">
-    <div class = "container">
-      <h2 class = "all-movies-page__title">Топ від MARVEL</h2>
+  <div class="all-movies-page">
+    <div class="container">
+      <h2 class="all-movies-page__title">Топ від MARVEL</h2>
+
+      <!-- Card list -->
       <movies-cards-list 
-        :movies = "movies" 
+        :movies="movies"
       >
       </movies-cards-list>
+
     </div>
   </div>
 </template>
@@ -14,6 +17,7 @@
 import MoviesCardsList from '../components/MoviesCardsList'
 
 export default {
+  name: 'AllMoviesPage',
   data() {
     return {}
   },
