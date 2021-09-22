@@ -3,7 +3,7 @@
 
     <!-- Movie card -->
     <movie-card
-      class="movie-card"
+      class="movies-cards-list__card"
       v-for="(movie, index) in movies"
       :key="index"
       :movie="movie"

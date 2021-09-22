@@ -57,7 +57,7 @@
               :src="img['img']"
           >
 
-          <!-- Delete movie -->
+          <!-- Show delete movie modal -->
           <span class="movies-map__delete">
             <button
                 class="movies-map__delete-btn"
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     showSortModal() {
-      this.modalSort ? this.modalSort = false : this.modalSort = true
+      this.modalSort = !this.modalSort
     },
     showDeleteModal(index) {
       this.modalDelete = true
@@ -131,6 +131,7 @@ export default {
 .container {
   background-color: rgba(0, 0, 0, 0.7);
   min-height: 500px;
+  position: relative;
 }
 
 .draggable {
@@ -139,6 +140,7 @@ export default {
 }
 
 .movies-map {
+  position: relative;
   &__head {
     display: flex;
     flex-direction: row;
@@ -183,6 +185,11 @@ export default {
 
   &__modal-delete {
     left: 50%;
+  }
+
+  &__modal-sort {
+    top: 100px;
+    right: -115px;
   }
 
   &__item {

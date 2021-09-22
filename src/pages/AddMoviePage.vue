@@ -10,7 +10,7 @@
       >
       </form-for-add-new-movie>
 
-      <!-- Modal info window -->
+      <!-- Info modal -->
       <info-modal-window
           v-else
           class="add-movie-page__modal"

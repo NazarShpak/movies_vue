@@ -6,12 +6,12 @@
         :src="movie.img"
         :alt="movie.title"
     >
-    <p class="rating">{{ movie.rating }}</p>
-    <p class="title">{{ movie.title }}</p>
+    <p class="movie-card__rating">{{ movie.rating }}</p>
+    <p class="movie-card__title">{{ movie.title }}</p>
 
     <!-- Open about movie page -->
     <router-link
-        class="more-info"
+        class="movie-card__info"
         :to="{ name: 'about-movie', params: {movieName: movie.title}}"
     >
       Детальніше
@@ -43,7 +43,7 @@ export default {
     height: 100%;
   }
 
-  .title {
+  &__title {
     position: absolute;
     margin-bottom: 0;
     bottom: 0;
@@ -58,7 +58,7 @@ export default {
     border-radius: 0 0 10px 10px;
   }
 
-  .rating {
+  &__rating {
     position: absolute;
     right: 0;
     top: 0;
@@ -76,7 +76,7 @@ export default {
     opacity: 0.8;
   }
 
-  .more-info {
+  &__info {
     position: absolute;
     cursor: pointer;
     top: 0;

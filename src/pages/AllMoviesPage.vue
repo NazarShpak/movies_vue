@@ -4,8 +4,9 @@
       <h2 class="all-movies-page__title">Топ від MARVEL</h2>
 
       <!-- Card list -->
-      <movies-cards-list 
-        :movies="movies"
+      <movies-cards-list
+          class="all-movies-page__list"
+          :movies="movies"
       >
       </movies-cards-list>
 
@@ -21,11 +22,11 @@ export default {
   data() {
     return {}
   },
-  components: { 
-      MoviesCardsList,
+  components: {
+    MoviesCardsList,
   },
   created() {
-      this.$store.dispatch('loadMovies', this.movies)
+    this.$store.dispatch('loadMovies', this.movies)
   },
   computed: {
     movies() {
@@ -44,6 +45,6 @@ export default {
   margin: 50px 0 50px 32px;
   padding: 10px 0 15px 15px;
   border-radius: 20px 0 0 20px;
-  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 90%);
 }
 </style>

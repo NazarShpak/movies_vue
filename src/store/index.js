@@ -36,10 +36,10 @@ export default new Vuex.Store({
     deleteMovie(state, payload) {
       state.movies.splice(payload, 1)
     },
-    sortMovies(state, {sortSelect, sortChek}) {
-      let sortFunction = (a, b) => (a[sortChek] > b[sortChek]) ? 1 : ((b[sortChek]  > a[sortChek]) ? -1 : 0)
+    sortMovies(state, {sortSelect, sortCheck}) {
+      let sortFunction = (a, b) => (a[sortCheck] > b[sortCheck]) ? 1 : ((b[sortCheck]  > a[sortCheck]) ? -1 : 0)
 
-      if (sortChek === 'default') {
+      if (sortCheck === 'default') {
         state.movies = state.moviesCopy.concat()
       } else {
         if(sortSelect === 'growth') {

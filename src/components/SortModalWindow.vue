@@ -20,7 +20,7 @@
             type="radio"
             name="sort"
             value="default"
-            v-model="sortChek"
+            v-model="sortCheck"
         >
         <span class="sort-modal-window__checkbox-style"></span>
         по замовчуванню
@@ -33,7 +33,7 @@
             type="radio"
             name="check"
             value="title"
-            v-model="sortChek"
+            v-model="sortCheck"
         >
         <span class="sort-modal-window__checkbox-style"></span>
         по назві
@@ -46,7 +46,7 @@
             type="radio"
             name="check"
             value="date"
-            v-model="sortChek"
+            v-model="sortCheck"
         >
         <span class="sort-modal-window__checkbox-style"></span>
         по даті виходу
@@ -59,7 +59,7 @@
             type="radio"
             name="check"
             value="rating"
-            v-model="sortChek"
+            v-model="sortCheck"
         >
         <span class="sort-modal-window__checkbox-style"></span>
         по рейтингу
@@ -106,13 +106,13 @@ export default {
   name: "SortModalWindow",
   data() {
     return {
-      sortChek: 'default',
+      sortCheck: 'default',
       sortSelect: 'growth',
     }
   },
   computed: {
     getSortData() {
-      return {'sortSelect': this.sortSelect, 'sortChek': this.sortChek}
+      return {'sortSelect': this.sortSelect, 'sortCheck': this.sortCheck}
     },
   },
   methods: {

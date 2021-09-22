@@ -3,7 +3,7 @@
     <form
         id="form"
         class="form-for-add-new-movie__form"
-        @submit.prevent
+        @submit.prevent="checkForm"
     >
       <h2 class="form-for-add-new-movie__title">Форма для додавання</h2>
 
@@ -13,18 +13,39 @@
           type="text"
           name="movie-name"
           placeholder="Назва фільму"
-          v-model="title"
-          required
+          v-model.trim="title"
+
+          :class="$v.title.$error ? 'is-invalided' : ''"
       >
+      <validate-form-errors
+          v-if="$v.title.$dirty && !$v.title.minLength"
+          :validateError="'title'"
+      >
+      </validate-form-errors>
 
       <!-- Rating -->
       <input
           class="form-for-add-new-movie__input"
-          type="text"
+          type="number"
           name="movie-rating"
           placeholder="Рейтинг"
           v-model="rating"
-          required
+          step="0.1"
+          :class="$v.rating.$error ? 'is-invalided' : ''"
+      >
+      <validate-form-errors
+          v-if="$v.rating.$dirty && !$v.rating.between"
+          :validateError="'rating'"
+      >
+      </validate-form-errors>
+
+      <!-- Date -->
+      <input
+          class="form-for-add-new-movie__input"
+          type="date"
+          name="movie-date"
+          placeholder="Дата виходу"
+          v-model="date"
       >
 
       <!-- Actors -->
@@ -34,8 +55,13 @@
           name="movie-actors"
           placeholder="Актори"
           v-model="actors"
-          required
+          :class="$v.actors.$error ? 'is-invalided' : ''"
       >
+      <validate-form-errors
+          v-if="$v.actors.$dirty && !$v.actors.minLength"
+          :validateError="'actors'"
+      >
+      </validate-form-errors>
 
       <!-- Directors -->
       <input
@@ -44,8 +70,13 @@
           name="movie-directors"
           placeholder="Режисер"
           v-model="directors"
-          required
+          :class="$v.directors.$error ? 'is-invalided' : ''"
       >
+      <validate-form-errors
+          v-if="$v.directors.$dirty && !$v.directors.minLength"
+          :validateError="'directors'"
+      >
+      </validate-form-errors>
 
       <!-- Link for main picture -->
       <input
@@ -53,9 +84,14 @@
           type="text"
           name="movie-img-url"
           placeholder="Посилання на картинку"
-          v-model="imgUrl"
-          required
+          v-model="img"
+          :class="$v.img.$error ? 'is-invalided' : ''"
       >
+      <validate-form-errors
+          v-if="$v.img.$dirty && !$v.img.url"
+          :validateError="'img'"
+      >
+      </validate-form-errors>
 
       <!-- Link for trailer -->
       <input
@@ -63,9 +99,14 @@
           type="text"
           name="movie-video-url"
           placeholder="Посилання на трейлер (YouTube)"
-          v-model="videoUrl"
-          required
+          v-model="video"
+          :class="$v.video.$error ? 'is-invalided' : ''"
       >
+      <validate-form-errors
+          v-if="$v.video.$dirty && !$v.video.url"
+          :validateError="'video'"
+      >
+      </validate-form-errors>
 
       <!-- Description -->
       <textarea
@@ -73,9 +114,14 @@
           name="movie-description"
           placeholder="Сюжет"
           v-model="description"
-          required
+          :class="$v.description.$error ? 'is-invalided' : ''"
       >
       </textarea>
+      <validate-form-errors
+          v-if="$v.description.$dirty && !$v.description.minLength"
+          :validateError="'description'"
+      >
+      </validate-form-errors>
 
       <!-- Add new movie -->
       <button
@@ -93,17 +139,49 @@
 </template>
 
 <script>
+import { url, minLength, between } from 'vuelidate/lib/validators'
+import ValidateFormErrors from "./ValidateFormErrors"
+
 export default {
   name: "FormForAddNewMovie",
+  components: {
+    ValidateFormErrors
+  },
   data() {
     return {
       title: null,
       description: null,
+      date: null,
       rating: null,
       actors: null,
       img: null,
       video: null,
-      directors: null
+      directors: null,
+      formValidate: false
+    }
+  },
+  validations: {
+    title: {
+      minLength: minLength(3),
+
+    },
+    description: {
+      minLength: minLength(15),
+    },
+    rating: {
+      between: between(0, 10)
+    },
+    actors: {
+      minLength: minLength(5)
+    },
+    img: {
+      url
+    },
+    video: {
+      url
+    },
+    directors: {
+      minLength: minLength(5)
     }
   },
   computed: {
@@ -112,26 +190,36 @@ export default {
         title: this.title,
         description: this.description,
         rating: this.rating,
+        date: this.date,
         actors: [this.actors],
-        img: this.imgUrl,
-        video: this.videoUrl,
+        img: this.img,
+        video: this.video,
         directors: [this.directors]
       }
     },
     isComplete() {
-      return this.title && this.description && this.rating && this.actors && this.imgUrl && this.videoUrl
+      return this.title && this.description && this.rating && this.date && this.actors && this.img && this.video
     }
   },
   methods: {
     addNewMovie() {
-      this.$store.commit("addMovie", this.getMovieInfo)
-      this.$emit('backToMap')
+      if(this.formValidate) {
+        this.$store.commit("addMovie", this.getMovieInfo)
+        this.$emit('backToMap')
+      }
+    },
+    checkForm() {
+      this.$v.$touch()
+      if(!this.$v.$error) {
+        this.formValidate = true
+      }
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
+
 .form-for-add-new-movie {
   &__title {
     font-size: 60px;
@@ -215,5 +303,11 @@ export default {
   transition: none;
   background-color: #6b6767;
   border: 5px solid #6b6767;
+}
+
+.is-invalided,
+.invalided {
+  border-color: red;
+  color: red;
 }
 </style>

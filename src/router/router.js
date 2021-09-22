@@ -18,17 +18,17 @@ export default new VueRouter({
       component: AllMoviesPage
     },
     {
-      path: "/movies/:movieName",
+      path: "/movies/movieName",
       name: "about-movie",
       component: AboutMoviePage
     },
     {
-      path: "/movies/:moviesMap",
+      path: "/movies/moviesMap",
       name: "movies-map",
       component: MoviesMap
     },
     {
-      path: "/movies/:addMovie",
+      path: "/movies/addMovie",
       name: "add-movie",
       component: AddMoviePage
     }
