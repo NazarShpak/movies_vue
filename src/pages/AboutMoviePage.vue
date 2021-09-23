@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.getters.getMovies
+      return this.$store.state.movies
     }
   }
 }

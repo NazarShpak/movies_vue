@@ -17,14 +17,6 @@ export default new Vuex.Store({
     movies: [],
     moviesCopy: [],
   },
-  getters: {
-    getMovies(state) {
-      return state.movies
-    },
-    getMoviesCopy(state) {
-      return state.moviesCopy
-    }
-  },
   mutations: {
     updateMovies(state, payload) {
       state.movies = payload.concat()
